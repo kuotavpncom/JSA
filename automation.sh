@@ -45,7 +45,7 @@ printf $stdin | hakrawler -u -subs -insecure -d 2 | grep '\.js' | tee tmp/spider
 
 ##that's for creds_check
 
-cat tmp/subjs${random_str}.txt tmp/gau${random_str}.txt tmp/gh${random_str}.txt tmp/spider${random_str}.txt | cut -d '?' -f1 | cut -d '#' -f1 | grep -E '\.js(?:onp?)?$' | sort -u | tee tmp/all_js_files${random_str}.txt | httpx -sc -silent >/dev/null 
+cat tmp/subjs${random_str}.txt tmp/gau${random_str}.txt tmp/spider${random_str}.txt | cut -d '?' -f1 | cut -d '#' -f1 | grep -E '\.js(?:onp?)?$' | sort -u | tee tmp/all_js_files${random_str}.txt | httpx -sc -silent >/dev/null 
 
 ## save all endpoints to the file for future processing
 
@@ -61,10 +61,6 @@ cat tmp/all_endpoints${random_str}.txt | sort -u  | tee tmp/all_endpoints_unique
 
 printf "Checking our js files for sweet credentials.."
 cat tmp/all_js_files${random_str}.txt tmp/creds_search${random_str}.txt | parallel --gnu -j 15 "nuclei -t templates/credentials-disclosure-all.yaml -no-color -silent -target {}"
-
-printf "Checking our js files for sweet credentials filess.."
-cat tmp/all_js_files${random_str}.txt tmp/creds_search${random_str}.txt | parallel --gnu -j 15 "nuclei -t -rl 10 -bs 2 -c 2 -as -silent -s critical,high,medium -no-color -silent -target {}"
-
 
 ## parameters bruteforcing with modified Arjun
 
