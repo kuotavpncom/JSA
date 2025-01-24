@@ -63,7 +63,7 @@ printf "Checking our js files for sweet credentials.."
 cat tmp/all_js_files${random_str}.txt tmp/creds_search${random_str}.txt | parallel --gnu -j 15 "nuclei -t templates/credentials-disclosure-all.yaml -no-color -silent -target {}"
 
 printf "Checking our js files for sweet credentials filess.."
-cat tmp/all_js_files${random_str}.txt tmp/creds_search${random_str}.txt | parallel --gnu -j 15 "nuclei -t templates/credentials-disclosure-file.yaml -no-color -silent -target {}"
+cat tmp/all_js_files${random_str}.txt tmp/creds_search${random_str}.txt | parallel --gnu -j 15 "nuclei -t -rl 10 -bs 2 -c 2 -as -silent -s critical,high,medium -no-color -silent -target {}"
 
 
 ## parameters bruteforcing with modified Arjun
