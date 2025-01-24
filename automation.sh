@@ -55,7 +55,6 @@ cat tmp/all_js_files${random_str}.txt | parallel --gnu --pipe -j 15 "python3 aut
 
 printf "Searching for endpoints..\n"
 cat tmp/all_js_files${random_str}.txt | parallel --gnu --pipe -j 15 "python3 automation/endpoints_extraction.py | tee -a tmp/all_endpoints${random_str}.txt | httpx -sc -silent "
-cat tmp/all_endpoints${random_str}.txt >/dev/null
 
 ## credentials checking
 
