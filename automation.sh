@@ -62,8 +62,8 @@ cat tmp/all_js_files${random_str}.txt tmp/creds_search${random_str}.txt | parall
 
 ## parameters bruteforcing with modified Arjun
 
-printf "Arjun parameters discovery.."
-cat tmp/all_endpoints_unique${random_str}.txt | parallel -j 15 "python3 Arjun/arjun.py -f Arjun/db/params.txt -t 12 --get -u {} | httpx -sc -mc 200 -silent"
+#printf "Arjun parameters discovery.."
+#cat tmp/all_endpoints_unique${random_str}.txt | parallel -j 15 "python3 Arjun/arjun.py -f Arjun/db/params.txt -t 12 --get -u {} | httpx -sc -mc 200 -silent"
 
 
 rm tmp/subjs${random_str}.txt tmp/gau${random_str}.txt tmp/spider${random_str}.txt tmp/all_js_files${random_str}.txt tmp/all_endpoints${random_str}.txt tmp/all_endpoints_unique${random_str}.txt
