@@ -63,13 +63,13 @@ printf "Checking our js files for sweet credentials.."
 cat tmp/all_js_files${random_str}.txt tmp/creds_search${random_str}.txt | parallel --gnu -j 15 "nuclei -t templates/credentials-disclosure-all.yaml -no-color -silent -target {}"
 
 printf "Checking our js files for sweet credentials filess.."
-cat tmp/all_js_files${random_str}.txt tmp/creds_search${random_str}.txt | parallel --gnu -j 15 "nuclei -t templates/credentials-disclosure-all.yaml -no-color -silent -target {}"
+cat tmp/all_js_files${random_str}.txt tmp/creds_search${random_str}.txt | parallel --gnu -j 15 "nuclei -t templates/credentials-disclosure-file.yaml -no-color -silent -target {}"
 
 
 ## parameters bruteforcing with modified Arjun
 
 printf "Arjun parameters discovery.."
-cat tmp/all_endpoints_unique${random_str}.txt | parallel -j 15 "arjun -t 12 --get -u {}"
+cat tmp/all_endpoints_unique${random_str}.txt | parallel -j 15 "python3 Arjun/arjun.py -f Arjun/db/params.txt -t 12 --get -u {} | tee -a tmp/all_arjun${random_str}.txt | httpx -sc -silent"
 
 
 rm tmp/subjs${random_str}.txt tmp/gau${random_str}.txt tmp/spider${random_str}.txt tmp/gh${random_str}.txt tmp/all_js_files${random_str}.txt tmp/all_endpoints${random_str}.txt tmp/all_endpoints_unique${random_str}.txt
